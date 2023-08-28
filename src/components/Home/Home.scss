@@ -1,0 +1,46 @@
+.home_container {
+  background-color: beige;
+  width: 100%;
+  height: 84.6vh;
+
+  .files_container {
+    .files__title {
+    }
+    .files {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+      .files__card {
+        border: 1px solid;
+        display: flex;
+        margin: 0 auto;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        transition: 0.5s ease;
+        // align-items: center;
+        .options {
+          visibility: hidden;
+          opacity: 0;
+          width: 100%;
+          transition: 0.5s ease;
+          background-color: rgba(0, 0, 255, 0.329);
+        }
+        &:hover {
+          .options {
+            // display: block;
+            cursor: pointer;
+            visibility: visible;
+            opacity: 1;
+          }
+        }
+        .files_image {
+          width: 140px;
+          img {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}

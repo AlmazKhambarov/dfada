@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans|Playfair+Display+SC");
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+
+main {
+  // min-height: 100vh;
+}
+
+header {
+  background: white;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+h1 {
+  font: normal 4em "Playfair Display SC", serif;
+  text-align: center;
+}
+
+nav {
+    border:1px solid;
+  max-width: 800px;
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
+  div{
+    display: flex;
+    align-items: center;
+    .image_con{
+      width: 40px;
+      height: 40px;
+    }
+    img{
+      width: 100%;
+    }
+  }
+}
+
+nav a {
+  flex-grow: 1;
+  text-align: center;
+  padding: 1em;
+  position: relative;
+}
+
+// animmation
+nav a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  transform: scaleX(0);
+  background: #333;
+  transition: 0.7s transform cubic-bezier(0.06, 0.9, 0.28, 1);
+}
+
+nav a:hover::after {
+  transform: scaleX(1);
+}
