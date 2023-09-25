@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+        import { createSlice } from "@reduxjs/toolkit";
 import filesSlice from "../filesSlice/filesSlice";
 import { Registration, UserLogin } from "../extraReducer";
 import finalPropsSelectorFactory from "react-redux/es/connect/selectorFactory";

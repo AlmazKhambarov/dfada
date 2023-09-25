@@ -77,21 +77,89 @@ export const uploadFile = createAsyncThunk(
     }
 );
 
-export const deleteFile = createAsyncThunk('Delete', async (props) => {
-    console.log(props)
-    const storageRef = ref(storage, props?.name);
-    deleteObject(storageRef)
-        .then(() => {
-            console.log("File deleted successfully");
-            deleteDoc(doc(firestore, "files", props.id))
-                .then(() => {
-                    console.log("Document deleted successfully");
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+export const deleteFile = createAsyncThunk('Delete', async (payload) => {
+    console.log(payload);
+
+    const storageRef = ref(storage, payload.name);
+
+    // Check if the file exists before attempting to delete it
+    try {
+        await getDownloadURL(storageRef);
+
+        // The file exists, so delete it
+        await deleteObject(storageRef);
+
+        console.log("File deleted successfully");
+
+        // Also delete the corresponding document in Firestore
+        await deleteDoc(doc(firestore, "files", payload.id));
+
+        console.log("Document deleted successfully");
+    } catch (error) {
+        console.error("Error deleting file or document:", error);
+    }
+});
+
+
+
+export const DeleteFolder = createAsyncThunk(
+    'user/deleteUserData',
+    async (uid, { rejectWithValue }) => {
+      try {
+        await deleteDoc(doc(firestore, "Folders", uid));
+        return uid;
+      } catch (error) {
+        return rejectWithValue(error.message);
+      }
+    }
+  );
+  
+
+
+// export const deleteFile = createAsyncThunk('Delete', async (payload) => {
+//     console.log(payload )
+//     const storageRef = ref(storage, payload.name);
+//     deleteObject(storageRef)
+//         .then(() => {
+//             console.log("File deleted successfully");
+//             deleteDoc(doc(firestore, "files", payload.id))
+//                 .then(() => {
+//                     console.log("Document deleted successfully");
+//                 })
+//                 .catch((error) => {
+//                     console.log(error);
+//                 });
+//         })
+//         .catch((error) => {
+//             console.log(error);
+//         });
+// })
+
+export const newFolder = createAsyncThunk("newFOlder", async(payload)=>{
+    console.log(payload)
+    const folder = {
+        name: payload.name,
+        userId: payload.userId,
+        folder:[],
+        files:[],
+        type:"folder"
+    }
+    const folderRef = collection(firestore, "Folders");
+
+    await addDoc(folderRef, folder)
 })
+export const getUserFolder = createAsyncThunk
+    (
+        'folders/get',
+        async (userId, { rejectWithValue }) => {
+            try {
+                const filesRef = collection(firestore, 'Folders');
+                const userFolder = query(filesRef, where('userId', '==', userId));
+                const snapshot = await getDocs(userFolder);
+                const folders = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+                return folders;
+            } catch (error) {
+                return rejectWithValue(error.message);
+            }
+        }
+    );

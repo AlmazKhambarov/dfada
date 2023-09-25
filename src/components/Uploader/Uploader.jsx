@@ -25,10 +25,14 @@ const Uploader = ({ user }) => {
   const [inputChange, setInputChange] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   useEffect(() => {
+    if(loadingUpload == false){
+      setInputChange(false);
+      setSelectedFile(null);
+    }
     if (selectedFile) {
       setInputChange(true);
     }
-  }, [selectedFile, selectedFile]);
+  }, [loadingUpload, selectedFile, selectedFile]);
 
   const handlePush = (e) => {
     e.preventDefault();
@@ -76,7 +80,7 @@ const Uploader = ({ user }) => {
               </form>
             ) : (
               <>
-                <div>
+                <div className="img__container">
                   <img src={selectedFile ? selectedFile : null} alt="#" />
                 </div>
                 <div>

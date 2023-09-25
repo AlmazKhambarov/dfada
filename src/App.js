@@ -9,6 +9,8 @@ import Uploader from './components/Uploader/Uploader'
 import { onAuthStateChanged } from 'firebase/auth';
 import { useState } from 'react';
 import { auth } from './components/redux/api/firebase';
+import Folders from './components/Folders/Folders';
+
 function App() {
   const [user, setUser] = useState()
   auth.onAuthStateChanged(user => {
@@ -22,6 +24,8 @@ function App() {
         <Route path='/home' element={user ? <Home user={user} /> : <Login />} />
         <Route path='/home/user' element={user ? <User user={user} /> : <Login />} />
         <Route path='/home/upload' element={user ? <Uploader user={user} /> : <Login />} />
+        <Route path='/home/:id' element={user ? <Folders user={user} /> : <Login />} />
+
 
       </Routes>
     </>

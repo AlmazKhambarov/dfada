@@ -9,6 +9,9 @@ const Options = (props) => {
   const { files } = props;
   const dispatch = useDispatch();
   console.log(files);
+  if(deleteFiles==false){
+    // window.location.reload();
+  }
   return (
     <Modal
       {...props}
@@ -28,7 +31,7 @@ const Options = (props) => {
           <Button>Copy Link</Button>
           <Button
             className="btn btn-danger"
-            onClick={(e) => dispatch(deleteFile(props))}
+            onClick={(e) => dispatch(deleteFile({id:files.id, name:files.name}))}
           >
             Delete
           </Button>
