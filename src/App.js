@@ -20,7 +20,7 @@ function App() {
     <>
       <Routes>
         <Route path='/' element={<Login user={user} />} />
-        <Route path='/sign-in' element={user ? <a href='/home'>Back to Register Home page</a> : <Register />} />
+        <Route path='/sign-in' element={<Register />} />
         <Route path='/home' element={user ? <Home user={user} /> : null} />
         <Route path='/home/user' element={user ? <User user={user} /> : null} />
         <Route path='/home/upload' element={user ? <Uploader user={user} /> : null} />
