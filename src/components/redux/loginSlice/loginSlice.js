@@ -22,6 +22,7 @@ const loginSlice = createSlice({
             })
             .addCase(Registration.fulfilled, (state, actio) => {
                 state.loading = false;
+                state.user = "logged"
             })
             .addCase(Registration.rejected, (state, action) => {
                 state.error = action.error.message;
@@ -32,6 +33,7 @@ const loginSlice = createSlice({
             })
             .addCase(UserLogin.fulfilled, (state, action) => {
                 state.loading = false;
+                state.user = "logged"
             })
             .addCase(UserLogin.rejected, (state, action) => {
                 state.errorData = action.error.message;

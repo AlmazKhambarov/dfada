@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import "../Register/Register.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { UserLogin } from "../../redux/extraReducer";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
-  const { errorData } = useSelector((state) => state.login);
+  const { errorData, user} = useSelector((state) => state.login);
   const dispath = useDispatch();
+  const navigate = useNavigate();
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -14,8 +16,12 @@ const Login = () => {
     if (data != null) {
       dispath(UserLogin(data));
     }
+    if(user === "logged"){
+      navigate('/home')
+    }
   };
-  console.log(errorData);
+  
+  console.log(user);
   return (
     <div class="login-page">
       <div class="form">
