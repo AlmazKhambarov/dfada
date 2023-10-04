@@ -4,6 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
     DeleteFolder,
   deleteFile,
+  fetchFileById,
   fetchUserFile,
   getUserFolder,
   newFolder,
@@ -18,7 +19,8 @@ const initialState = {
   loadingUpload: null,
   foldersData: null,
   createLoading: null,
-  folderDeleted:null
+  folderDeleted:null,
+  file:null
 };
 const filesSlice = createSlice({
   name: "file",
@@ -93,6 +95,19 @@ const filesSlice = createSlice({
       })
       .addCase(newFolder.rejected, (state, action) => {
         state.error = action.error.message;
+      });
+      builder
+      .addCase(fetchFileById.pending, (state) => {
+        state.loading = 'loading';
+        state.error = null;
+      })
+      .addCase(fetchFileById.fulfilled, (state, action) => {
+        state.loading = 'succeeded';
+        state.file = action.payload;
+      })
+      .addCase(fetchFileById.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
       });
   },
 });

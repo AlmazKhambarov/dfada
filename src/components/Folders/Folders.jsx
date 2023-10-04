@@ -1,30 +1,34 @@
 /** @format */
 
-import React from "react";
+import React, { useEffect } from "react";
 import "./Folders.scss";
 import closeIcon from "../../assets/images/360_F_530932571_oVMX77OagcravakFNRUIlO5Z5bMZ17ty.jpg";
-import { useDispatch } from "react-redux";
-import { DeleteFolder } from "../redux/extraReducer";
-const Folders = ({ data, setShowFolderOption }) => {
-  console.log(data);
+import { useDispatch, useSelector } from "react-redux";
+import { DeleteFolder, fetchFileById, getUserFolder } from "../redux/extraReducer";
+import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+const Folders = ({ user}) => {
+  const {file, foldersData}  = useSelector(state=>state.files)
+  console.log(file);
   const dispatch = useDispatch();
-  const handleDelete = () => {
-    dispatch(DeleteFolder(data.id));
-  };
+let userUid = JSON.parse(localStorage.getItem("userLocal"))
+  const folderId = useParams();
+  console.log(foldersData)
+  useEffect(()=>{
+    dispatch(getUserFolder(userUid?.uid));
+  },[folderId])
+   
+    var data = foldersData?.filter((el)=>el.id === folderId?.id);
+console.log(data)
+   
   return (
     <div className='folders__main'>
-      <div className='folders__modal__content'>
-        <div className='closeBtn'>
-          <img
-            src={closeIcon}
-            alt=''
-            onClick={() => setShowFolderOption(false)}
-          />
-          <button className='btn btn-danger' onClick={handleDelete}>
-            DELETE this FOlder
-          </button>
-        </div>
-      </div>
+    <Link style={{color:"blue"}} to={"/home"}>Back</Link>
+  {data?.map((el)=>(
+    <div className="folder__c">
+      <span>{el.name}</span>
+    </div>
+  ))}
     </div>
   );
 };

@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfi
 import { auth, firestore, storage } from "./api/firebase";
 import { deleteObject, getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 import { addDoc, collection, deleteDoc, doc, getDocs, query, where } from "firebase/firestore";
+import User from "../User/User";
 
 export const Registration = createAsyncThunk(
     "user/createUserAndProfile",
@@ -115,6 +116,29 @@ export const DeleteFolder = createAsyncThunk(
   );
   
 
+  // Create an asynchronous thunk to fetch a file by its ID
+  export const fetchFileById = createAsyncThunk(
+    'files/fetchById',
+    async (fileId, { rejectWithValue }) => {
+      try {
+        const filesRef = collection(firestore, 'Folders');
+        // Fetch the file document from Firestore by its ID
+        const fileDoc = await filesRef.doc(fileId).get();
+  
+        if (!fileDoc.exists) {
+          throw new Error('File not found'); // Handle the case where the file doesn't exist
+        }
+  
+        // Assuming the file data is stored in the 'data' field
+        const fileData = fileDoc.data().data;
+  
+        return { id: fileId, data: fileData };
+      } catch (error) {
+        return rejectWithValue(error.message);
+      }
+    }
+  );
+  
 
 // export const deleteFile = createAsyncThunk('Delete', async (payload) => {
 //     console.log(payload )
@@ -163,3 +187,18 @@ export const getUserFolder = createAsyncThunk
             }
         }
     );
+
+    export const changeUserProfile = createAsyncThunk(
+        'user/changeProfile',
+        async (data, { rejectWithValue }) => {
+          console.log(data)
+          try {
+            await updateProfile(auth.currentUser, {
+              displayName: data.username,
+            });
+            return auth.currentUser;
+          } catch (error) {
+            return rejectWithValue(error.message);
+          }
+        }
+      );

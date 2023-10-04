@@ -5,9 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { uploadFile } from "../redux/extraReducer";
 const Uploader = ({ user }) => {
   const { loadingUpload } = useSelector((state) => state.files);
+  let userUid = JSON.parse(localStorage.getItem("userLocal"))
   const [data, setData] = useState({
     file: null,
-    userUid: user,
+    userUid: userUid
   });
   const [file, setFile] = useState(null);
   const [selectedF, setSelectedF] = useState("");
@@ -43,7 +44,7 @@ const Uploader = ({ user }) => {
     <>
       <Header />
       {loadingUpload ? (
-        <span>Loading...</span>
+          <div class="loading"></div>
       ) : (
         <div class="formbold-main-wrapper">
           <div class="formbold-form-wrapper">

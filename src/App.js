@@ -13,18 +13,24 @@ import Folders from './components/Folders/Folders';
 
 function App() {
   const [user, setUser] = useState()
+  let userLocal  = JSON.parse(localStorage.getItem("userLocal")) 
   auth.onAuthStateChanged(user => {
     setUser(user)
+    if (!userLocal) {
+      localStorage.setItem("userLocal" , JSON.stringify(user))
+      
+    }
   })
+  console.log(user)
   return (
     <>
       <Routes>
-        <Route path='/' element={<Login user={user} />} />
-        <Route path='/sign-in' element={<Register />} />
-        <Route path='/home' element={user ? <Home user={user} /> : null} />
-        <Route path='/home/user' element={user ? <User user={user} /> : null} />
-        <Route path='/home/upload' element={user ? <Uploader user={user} /> : null} />
-        <Route path='/home/:id' element={user ? <Folders user={user} /> : null} />
+        <Route path='/' element={userLocal ?<Home user={user} /> :<Login user={user} />} />
+        <Route path='/sign-in' element={userLocal ?<Home user={user} /> : <Register />} />
+        <Route path='/home' element={userLocal ? <Home user={user} /> : null} />
+        <Route path='/home/user' element={userLocal ? <User user={user} /> : null} />
+        <Route path='/home/upload' element={userLocal ? <Uploader user={user} /> : null} />
+        <Route path='/home/:id' element={userLocal ? <Folders user={user} /> : null} />
 
 
       </Routes>

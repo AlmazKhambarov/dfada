@@ -6,8 +6,9 @@ import { newFolder } from "../redux/extraReducer";
 const CreateFolder = (props) => {
   const [folderName, setFolderName] = useState("")
   var dispatch = useDispatch();
+  let userId = JSON.parse(localStorage.getItem("userLocal"))
  const createFolder = () =>{
-  dispatch(newFolder({name:folderName, userId:props.userId}))
+  dispatch(newFolder({name:folderName, userId:userId.uid}))
   props.onHide()
  }
  console.log(props)

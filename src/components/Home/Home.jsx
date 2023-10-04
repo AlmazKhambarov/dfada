@@ -9,36 +9,30 @@ import Options from "./Options";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserFile, getUserFolder } from "../redux/extraReducer";
 import CreateFolder from "./CreateFolder";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Folders from "../Folders/Folders";
 
 const Home = ({ user }) => {
-  const { filesData, deleteFiles, foldersData, createLoading, folderDeleted } = useSelector(
-    (state) => state.files
-  );
+  const { filesData, deleteFiles, foldersData, createLoading, folderDeleted } =
+    useSelector((state) => state.files);
   const [modalShow, setModalShow] = useState(false);
-  const [showFolderOption, setShowFolderOption] = useState(false);
+ 
   const [showCreate, setShowCreate] = useState(false);
   const files = [{ name: "almaz" }];
   var path_name = useLocation();
-  console.log(path_name);
+  let userId = JSON.parse(localStorage.getItem("userLocal"))
+  console.log(userId);
   const dispatch = useDispatch();
   var navigate = useNavigate();
   useEffect(() => {
-    dispatch(fetchUserFile(user?.uid));
-    dispatch(getUserFolder(user?.uid));
+    dispatch(fetchUserFile(userId.uid));
+    dispatch(getUserFolder(userId.uid));
   }, [createLoading, deleteFiles]);
-  console.log(foldersData);
-  useEffect(() => {
-    if (folderDeleted === "delete") {
-      setShowFolderOption(false);
-    }
-  }, [folderDeleted]);
   return (
     <>
       <Header />
       {deleteFiles ? (
-        <span>Loading...</span>
+        <div class="loading"></div>
       ) : (
         <div className='home_container'>
           <div className='files_container'>
@@ -83,23 +77,14 @@ const Home = ({ user }) => {
             <h2 className='files__title'>Folders</h2>
             <div className='files'>
               {foldersData?.map((el) => (
-                <div className='files__card'>
-                  <div className='files_image'>
-                    <img src={folder_image} alt='' />
+                <Link to={`/home/${el.id}`}>
+                  <div className='files__card'>
+                    <div className='files_image'>
+                      <img src={folder_image} alt='' />
+                    </div>
+                    <span>{el.name}</span>
                   </div>
-                  <span>{el.name}</span>
-                  <div className='options'>
-                    <span onClick={() => setShowFolderOption(el.id)}>more</span>
-                    {showFolderOption === el.id ? (
-                      <Folders
-                        setShowFolderOption={setShowFolderOption}
-                        data={el}
-                      />
-                    ) : (
-                      ""
-                    )}
-                  </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
