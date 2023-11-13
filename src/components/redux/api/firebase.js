@@ -47,13 +47,13 @@ import { getStorage } from "firebase/storage";
 
 //  Update the config
 const firebaseConfig = {
-    apiKey: "AIzaSyDu8DhsQLEpZlwjl4OKhfuYzpP35Ujsyzs",
-    authDomain: "erseitov-dropbox.firebaseapp.com",
-    projectId: "erseitov-dropbox",
-    storageBucket: "erseitov-dropbox.appspot.com",
-    messagingSenderId: "281467543435",
-    appId: "1:281467543435:web:0ed3878b7c4a5bacc9998e",
-    measurementId: "G-C1R6P2WGQH"
+    apiKey: "AIzaSyDSfkpI8lDtFMhPQA0bOLwp6T6Q5sGtaGM",
+    authDomain: "dropbox-repo.firebaseapp.com",
+    projectId: "dropbox-repo",
+    storageBucket: "dropbox-repo.appspot.com",
+    messagingSenderId: "940689623703",
+    appId: "1:940689623703:web:fd03fe5e0986c4dc0677d2",
+    measurementId: "G-X6PZHXCK4X"
 };
 
 // Initialize Firebase

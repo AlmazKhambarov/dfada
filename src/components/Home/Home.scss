@@ -4,23 +4,23 @@
   height: 84.6vh;
 
   .files_container {
-    .files__title {
+    div{
+      display: flex;
     }
-    .files {
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
       .files__card {
         cursor: pointer;
         border: 1px solid;
         display: flex;
-        margin: 0 auto;
+        width: 147px;
+        /* margin: 0 auto; */
         flex-direction: column;
         justify-content: center;
         text-align: center;
+        // text-align: center;
         transition: 0.5s ease;
-        // align-items: center;
         .options {
+          display: flex;
+          align-items: center;
           visibility: hidden;
           opacity: 0;
           width: 100%;
@@ -30,9 +30,15 @@
         &:hover {
           .options {
             // display: block;
+            text-align: center;
             cursor: pointer;
             visibility: visible;
             opacity: 1;
+            span{
+              // text-align: center/;
+              display: flex;
+              align-items: center;
+            }
           }
         }
         .files_image {
@@ -42,7 +48,7 @@
           }
         }
       }
-    }
+    
   }
 
 .loading {

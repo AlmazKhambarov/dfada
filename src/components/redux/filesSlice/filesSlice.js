@@ -50,7 +50,7 @@ const filesSlice = createSlice({
       });
     builder
       .addCase(fetchUserFile.pending, (state, action) => {
-        // state.loadingUpload = true;
+        state.loadingUpload = true;
         state.loading = true;
       })
       .addCase(fetchUserFile.fulfilled, (state, action) => {

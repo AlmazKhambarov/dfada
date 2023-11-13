@@ -29,10 +29,8 @@ function App() {
         <Route path='/sign-in' element={userLocal ?<Home user={user} /> : <Register />} />
         <Route path='/home' element={userLocal ? <Home user={user} /> : null} />
         <Route path='/home/user' element={userLocal ? <User user={user} /> : null} />
-        <Route path='/home/upload' element={userLocal ? <Uploader user={user} /> : null} />
+        {/* <Route path='/home/upload' element={userLocal ? <Uploader user={user} /> : null} /> */}
         <Route path='/home/:id' element={userLocal ? <Folders user={user} /> : null} />
-
-
       </Routes>
     </>
   );

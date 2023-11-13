@@ -46,8 +46,8 @@ export const fetchUserFile = createAsyncThunk
 export const uploadFile = createAsyncThunk(
     'files/upload',
     async (data) => {
-        const { file, userUid } = data;
-        console.log(file)
+        const { file, userId , folderId} = data;
+        console.log(data)
         try {
             const storage = getStorage();
             const namer = `${new Date()}_${file.name}`;
@@ -62,11 +62,11 @@ export const uploadFile = createAsyncThunk(
                 name: namer,
                 filename: file.name,
                 url: url,
-                userId: userUid.uid,
+                userId: userId,
+                folderId:folderId
             };
-
+            console.log(fileData)
             const docRef = await addDoc(collection(firestore, 'files'), fileData);
-
             return {
                 id: docRef.id,
                 ...fileData,
@@ -166,7 +166,9 @@ export const newFolder = createAsyncThunk("newFOlder", async(payload)=>{
         userId: payload.userId,
         folder:[],
         files:[],
-        type:"folder"
+        type:"folder",
+        folderId:payload.folderId
+
     }
     const folderRef = collection(firestore, "Folders");
 
