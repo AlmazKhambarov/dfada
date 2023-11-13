@@ -32,8 +32,8 @@ let userUid = JSON.parse(localStorage.getItem("userLocal"))
   },[folderId])
  
   
-    var data = filesData?.filter((el)=>el.folderId === folderId?.id);
-       
+  const filtredFiles = filesData?.filter((x) => x.folderId == folderId?.id);
+  const filterFolders = foldersData?.filter((x)=> x.folderId == folderId?.id)
     const navigate = useNavigate()
 
 
@@ -54,6 +54,7 @@ let userUid = JSON.parse(localStorage.getItem("userLocal"))
               <CreateFolder
                 show={showCreate}
                 userId={user?.uid}
+                folderId={folderId?.id}
                 onHide={() => setShowCreate(false)}
               />
             ) : (
@@ -66,7 +67,7 @@ let userUid = JSON.parse(localStorage.getItem("userLocal"))
             </div>
             <h2 className='files__title'>Files</h2>
             <div>
-              {foldersData?.map((el) => (
+              {filterFolders?.map((el) => (
                 <Link to={`/home/${el.id}`}>
                   <div className='files__card'>
                     <div className='files_image'>
@@ -82,7 +83,7 @@ let userUid = JSON.parse(localStorage.getItem("userLocal"))
               {" "}
             </div>
             <div>
-                  {data.map((el) => (
+                  {filtredFiles.map((el) => (
                 <div className='files__card'>
                   <div className='files_image'>
                     <img src={file_image} alt='' />

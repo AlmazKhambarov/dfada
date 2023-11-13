@@ -30,7 +30,7 @@ const Home = ({ user }) => {
   }, [createLoading, deleteFiles]);
 
   const filtredFiles = filesData?.filter((x) => x.folderId == 1);
-
+  const filterFolders = foldersData?.filter((x)=> x.folderId == 1)
   return (
     <>
       <Header folderId={1}/>
@@ -56,7 +56,7 @@ const Home = ({ user }) => {
             )}
             <h2 className='files__title'>Files</h2>
             <div>
-              {foldersData?.map((el) => (
+              {filterFolders?.map((el) => (
                 <Link to={`/home/${el.id}`}>
                   <div className='files__card'>
                     <div className='files_image'>

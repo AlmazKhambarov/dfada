@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useDispatch } from "react-redux";
 import { newFolder } from "../redux/extraReducer";
-const CreateFolder = (props,) => {
+const CreateFolder = (props) => {
   const [folderName, setFolderName] = useState("")
   var dispatch = useDispatch();
   let userId = JSON.parse(localStorage.getItem("userLocal"))
