@@ -63,7 +63,8 @@ export const uploadFile = createAsyncThunk(
                 filename: file.name,
                 url: url,
                 userId: userId,
-                folderId:folderId
+                folderId:folderId,
+                CreatedDate:new Date(),
             };
             console.log(fileData)
             const docRef = await addDoc(collection(firestore, 'files'), fileData);

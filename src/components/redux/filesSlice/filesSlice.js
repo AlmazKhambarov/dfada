@@ -41,6 +41,7 @@ const filesSlice = createSlice({
     builder
       .addCase(uploadFile.pending, (state, action) => {
         state.loadingUpload = true;
+        state.deleteFiles = "k"
       })
       .addCase(uploadFile.fulfilled, (state, action) => {
         state.loadingUpload = false;
